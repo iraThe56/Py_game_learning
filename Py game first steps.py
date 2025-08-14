@@ -20,7 +20,7 @@ particleSystem = ParticleSystem.ParticleSystem()
 
 ## basic demo 1,draws three manually added particles
 
-# particleSystem.add_particle(400,200,0,0,200)
+particleSystem.add_particle(500,400,0,0,4000)
 # particleSystem.add_particle(200,100,40,1,4)
 # particleSystem.add_particle(300,40,30,1,4)
 
@@ -37,10 +37,36 @@ particleSystem = ParticleSystem.ParticleSystem()
 #     particleSystem.add_particle(particle_x, particle_y, 0, 0, 4)
 # print()
 
-## basic demo 3, draws 10,000 particles randomly across the screen
+# basic demo 3, draws 10,000 particles randomly across the screen
 # print(random.random()*800)
 # for i in range(10000):
-#     particleSystem.add_particle(float(random.random()*1000)+500,float(random.random()*800),0, 0, 1)
+#     particleSystem.add_particle(float(random.random()*500)+250,float(random.random()*400+200),0, 0, .5)
+
+#
+def create_particle_in_radius(radius):
+    particles_x = (random.random() - 0.5) * 2 * radius  # x in [-radius, radius]
+    particles_y = (random.random() - 0.5) * 2 * radius  # y in [-radius, radius]
+    if np.sqrt((particles_x**2)+(particles_y**2)) > radius:
+        create_particle_in_radius(radius)
+        return None
+    else:
+        particleSystem.add_particle(particles_x + 100, particles_y + 400, 0, 100, .01)
+        return None
+
+
+radius=10
+for i in range(10000):
+    create_particle_in_radius(radius)
+
+#
+# particle_radisus = 0
+# for i in range(100):
+#     particle_radisus = 1 + particle_radisus
+#     particle_theta = particle_theta + (np.pi / 1/12)
+#     particle_x = np.cos(particle_theta) * particle_radisus + 500
+#     particle_y = np.sin(particle_theta) * particle_radisus + 400
+#     particleSystem.add_particle(particle_x, particle_y, 0, 0, 4)
+#
 
 
 

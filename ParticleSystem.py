@@ -35,7 +35,8 @@ class ParticleSystem:
         # Only draw the active particles (0 to count)
         for i in range(self.count):
             x, y, z = self.positions[i]
-            pygame.draw.circle(screen, (255, 255, 255), (int(x), int(y)), round(0+np.sqrt(abs(self.masses[i]))))
+            pygame.draw.circle(screen, (255, 255, 255), (int(x), int(y)),max( round(0+np.sqrt(abs(self.masses[i]))),1  ))
+            # pygame.draw.circle(screen, (255, 255, 255), (int(x), int(y)),1 )
 
     def update(self, dt):
         # Only update active particles
