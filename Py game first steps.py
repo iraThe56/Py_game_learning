@@ -11,7 +11,7 @@ pygame.display.set_caption("Dots!")
 running = True
 clock = pygame.time.Clock()
 particleSystem = ParticleSystem.ParticleSystem()
-particleSystem.add_particles(1,10,1)
+particleSystem.add_particle(400,10,1)
 
 while running:
     # Handle events
