@@ -1,6 +1,7 @@
 import pygame
 import numpy as np
 import pyfalcon
+import random
 
 
 class ParticleSystem:
@@ -9,6 +10,7 @@ class ParticleSystem:
         self.positions = np.zeros((max_particles, 3))
         self.velocities = np.zeros((max_particles, 3))
         self.masses = np.zeros(max_particles)
+        self.colors = np.zeros((max_particles))
         self.count = 0  # How many particles are actually "active"
         self.max_particles = max_particles
         self.g_value = 100
@@ -32,11 +34,19 @@ class ParticleSystem:
         return False  # Array full
 
     def draw_particles(self, screen):
-        # Only draw the active particles (0 to count)
+        # # Only draw the active particles (0 to count)
         for i in range(self.count):
             x, y, z = self.positions[i]
-            pygame.draw.circle(screen, (255, 255, 255), (int(x), int(y)),max( round(0+np.sqrt(abs(self.masses[i]))),1  ))
-            # pygame.draw.circle(screen, (255, 255, 255), (int(x), int(y)),1 )
+            # if self.masses[i] > 100:
+            #     continue
+            # pygame.draw.circle(screen, (round(random.random()*255), round(random.random()*255), round(random.random()*255)), (int(x), int(y)),max( round(0+np.sqrt(abs(self.masses[i]))),1  ))
+            # pygame.draw.circle(screen, (255, 255, 255), (int(x), int(y)),max( round(0+np.sqrt(abs(self.masses[i]))),1  ) )
+            # pygame.draw.circle(screen, (255, 255, 255), (int(x), int(y)),  1)
+            velocity_magnitude=np.sqrt(self.velocities[i,0]**2 +self.velocities[i,1]**2+self.velocities[i,2]**2)
+            velocity_color_magnitude=255-min((velocity_magnitude),225)
+            pygame.draw.circle(screen,(velocity_color_magnitude,velocity_color_magnitude, 225), (int(x), int(y)),max( round(0+np.sqrt(abs(self.masses[i]))),1  ) )
+
+
 
     def update(self, dt):
         # Only update active particles
@@ -62,10 +72,16 @@ class ParticleSystem:
 
 
     def update_velocities(self, accelerations):
-        self.velocities += accelerations.astype(float)
+        self.velocities += (accelerations.astype(float))
+                            # +np.random.normal(size=(self.max_particles, 3)))
+        
+
+
 
     def apply_drag(self,drag_coefficient):
         self.velocities = self.velocities- self.velocities * drag_coefficient
+
+
 
     # def prevent_overlaping_particles(self):
     #     mask = self.masses != 0
