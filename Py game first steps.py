@@ -7,7 +7,7 @@ import random
 
 import ParticleSystem
 
-screen_size=[2000,800]
+screen_size=[3000,800]
 # Initialize
 pygame.init()
 screen = pygame.display.set_mode((screen_size[0], screen_size)[1],pygame.RESIZABLE)
@@ -19,12 +19,12 @@ clock = pygame.time.Clock()
 particleSystem = ParticleSystem.ParticleSystem()
 
 
-## basic demo 1,draws three manually added particles
-
+# # # basic demo 1,draws three manually added particles
+# #
 # particleSystem.add_particle(1000,500,0,0,500)
-# particleSystem.add_particle(200,100,40,1,4)
-# particleSystem.add_particle(300,40,30,1,4)
-
+# particleSystem.add_particle(200,100,40,1,0)
+# # particleSystem.add_particle(300,40,30,1,4)
+# #
 
 ##basic demo 2 creates one hundred particles in a spyral
 
@@ -66,7 +66,7 @@ for i in range(10000):
 # for i in range(1000):
 #     create_particle_in_radius(radius)
 #
-# #
+# # #
 # particle_theta=0
 # particle_radisus = 0
 # for i in range(1000):
@@ -107,6 +107,7 @@ while running:
             running = False
         mouse_x, mouse_y = pygame.mouse.get_pos()
 
+
         # Fix: Move mouse click handling inside event loop
         if event.type == pygame.MOUSEBUTTONDOWN:
             mouse_clicked_state = True
@@ -135,6 +136,7 @@ while running:
 
     # particleSystem.update(.01)
     # particleSystem.apply_drag(.001)
+
 
     last_mouse_clicked_state = mouse_clicked_state
     # save_frame(screen)
